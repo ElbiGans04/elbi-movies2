@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import fetcher from "./utils/fetcher";
+import fetcher from "../utils/fetcher";
 import useSWR from "swr";
-import Button from "./components/button";
+import Button from "../components/button";
 
 /**
  * Here we will declare the interface type that we will use to represent
@@ -17,7 +17,7 @@ interface Data {
   total_pages: number;
 }
 
-function App() {
+function HomeComponent () {
   /**
    * Here we define the state to create the search feature
    */
@@ -196,4 +196,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomeComponent;
