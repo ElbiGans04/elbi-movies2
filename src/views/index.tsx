@@ -53,7 +53,10 @@ function HomeComponent() {
     }${searchParam.toString()}`;
   }, [searchKeyUp, pagination]);
 
-  const { data, isLoading } = useSWR<Data>(url, fetcher);
+  const { data, isLoading, error } = useSWR<Data>(url, fetcher);
+
+  // Beri Deskripsi
+  const haveToDisabled = isLoading || error;
 
   /**
    * Here we will do the conditioning, in which we will wait for
@@ -79,10 +82,10 @@ function HomeComponent() {
   useEffect(() => {
     if (search !== searchKeyUp) {
       setPagination(1);
-      localStorage.setItem('paginationIndex', '1');
+      localStorage.setItem("paginationIndex", "1");
     }
   }, [search, searchKeyUp, setPagination]);
-  
+
   return (
     <div
       className={`bg-brand-900 min-h-screen w-full w-full flex justify-center py-[50px]`}
@@ -178,7 +181,7 @@ function HomeComponent() {
           the data limit for the next button */}
           <div className="w-full h-full grid grid-cols-2 gap-[20px] justify-end">
             <Button
-              disabled={pagination === 1}
+              disabled={pagination === 1 || haveToDisabled}
               onClick={() =>
                 setPagination((state) => {
                   const value = state - 1;
@@ -191,11 +194,12 @@ function HomeComponent() {
             </Button>
             <Button
               disabled={
-                data &&
-                typeof data === "object" &&
-                data !== null &&
-                (data?.total_pages > 500 ? 500 : data?.total_pages) ===
-                  pagination
+                (data &&
+                  typeof data === "object" &&
+                  data !== null &&
+                  (data?.total_pages > 500 ? 500 : data?.total_pages) ===
+                    pagination) ||
+                haveToDisabled
               }
               onClick={() =>
                 setPagination((state) => {
