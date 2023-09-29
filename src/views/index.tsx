@@ -59,7 +59,7 @@ function HomeComponent () {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setSearchKeyUp(search);
-    }, 1000);
+    }, 500);
 
     return () => {
       clearTimeout(timeout);
