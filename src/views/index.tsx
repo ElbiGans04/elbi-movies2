@@ -68,7 +68,7 @@ function HomeComponent () {
 
   return (
     <div
-      className={`bg-[#0A2647] min-h-screen w-full w-full flex justify-center py-[50px]`}
+      className={`bg-brand-900 min-h-screen w-full w-full flex justify-center py-[50px]`}
     >
       <div className="xl:max-w-5xl lg:max-w-3xl px-[50px] w-full h-full">
         <div className="w-full h-full space-y-[30px]">
@@ -82,13 +82,13 @@ function HomeComponent () {
             </p>
           </div>
 
-          <div className="bg-[#2C74B3] w-full h-[2px]"></div>
+          <div className="bg-brand-600 w-full h-[2px]"></div>
 
           <div className="space-y-[10px]">
             <input
               id="search"
               type="text"
-              className="bg-[#144272] w-full text-white shadow p-[8px] lg:p-[16px] rounded hover:opacity-[0.8] lg:text-md text-sm"
+              className="bg-brand-800 w-full text-white shadow p-[8px] lg:p-[16px] rounded hover:opacity-[0.8] lg:text-md text-sm"
               placeholder="Search Any Movies"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -132,9 +132,9 @@ function HomeComponent () {
                   <Link to={`/${candidate.id}`}>
                     <div
                       key={candidate.id}
-                      className="group shadow-xl bg-[#144272] rounded overflow-hidden hover:border-[#2C74B3] border-[3px] border-[#0A2647] cursor-pointer"
+                      className="group shadow-xl bg-brand-800 rounded overflow-hidden hover:border-brand-600 border-[3px] border-brand-900 cursor-pointer"
                     >
-                      <div className="w-full h-[500px] bg-[#0A2647] overflow-hidden">
+                      <div className="w-full h-[500px] bg-brand-900 overflow-hidden">
                         <img
                           src={`${process.env.REACT_APP_IMAGE_URL}/${
                             candidate.poster_path

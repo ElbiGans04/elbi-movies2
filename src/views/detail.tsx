@@ -18,7 +18,7 @@ export default function MovieDetailComponent() {
 
   return (
     <div
-      className={`bg-[#0A2647] min-h-screen pb-[50px] w-full h-full flex flex-col items-center justify-start`}
+      className={`bg-brand-900 min-h-screen pb-[50px] w-full h-full flex flex-col items-center justify-start`}
     >
       <div className="w-full h-[350px] bg-slate-900 shadow-xl hidden lg:block">
         <img
@@ -27,7 +27,7 @@ export default function MovieDetailComponent() {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="xl:max-w-5xl lg:max-w-3xl px-[x50px] w-full h-full lg:-mt-[250px] px-[20px] py-[16px] md:p-[20px] flex flex-col md:flex-row rounded overflow-hidden md:space-x-[16px] bg-[#144272] shadow-xl">
+      <div className="xl:max-w-5xl lg:max-w-3xl px-[x50px] w-full h-full lg:-mt-[250px] px-[20px] py-[16px] md:p-[20px] flex flex-col md:flex-row rounded overflow-hidden md:space-x-[16px] bg-brand-800 shadow-xl">
         <div className="w-[300px] h-[400px] overflow-hidden shadow-xl shrink-[0]">
           <img
             src={`${process.env.REACT_APP_IMAGE_URL}${data?.poster_path}`}
