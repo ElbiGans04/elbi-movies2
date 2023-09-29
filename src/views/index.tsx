@@ -73,10 +73,16 @@ function HomeComponent() {
     };
   }, [search, setSearchKeyUp]);
 
+  /**
+   * Reset Pagination Number When Input Changes
+   */
   useEffect(() => {
-    console.log(search, searchKeyUp, pagination);
-  }, [search, searchKeyUp, pagination]);
-
+    if (search !== searchKeyUp) {
+      setPagination(1);
+      localStorage.setItem('paginationIndex', '1');
+    }
+  }, [search, searchKeyUp, setPagination]);
+  
   return (
     <div
       className={`bg-brand-900 min-h-screen w-full w-full flex justify-center py-[50px]`}
