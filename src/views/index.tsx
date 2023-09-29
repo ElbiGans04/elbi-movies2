@@ -3,6 +3,7 @@ import fetcher from "../utils/fetcher";
 import useSWR from "swr";
 import Button from "../components/button";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 /**
  * Here we will declare the interface type that we will use to represent
@@ -147,7 +148,7 @@ function HomeComponent () {
                           {candidate.title}
                         </p>
                         <p className="text-white text-sm xl:text-md">
-                          {candidate.release_date}
+                          {dayjs(candidate.release_date).format('MMM, DD YYYY')}
                         </p>
                       </div>
                     </div>

@@ -1,6 +1,8 @@
 import { useParams } from "react-router";
 import useSWR from "swr";
 import fetcher from "../utils/fetcher";
+import numeral from 'numeral'
+import dayjs from 'dayjs';
 
 export default function MovieDetailComponent() {
   const { id } = useParams();
@@ -48,7 +50,7 @@ export default function MovieDetailComponent() {
               <tbody>
                 <tr>
                   <td>Release Date</td>
-                  <td className="pl-5">: {data?.release_date || "-"}</td>
+                  <td className="pl-5">: {dayjs(data?.release_date).format('MMM, DD YYYY')}</td>
                 </tr>
                 <tr>
                   <td>Native Language</td>
@@ -83,11 +85,11 @@ export default function MovieDetailComponent() {
                   <tbody className="text-white">
                     <tr>
                       <td>Budget</td>
-                      <td className="pl-5">: ${data?.budget || "-"}</td>
+                      <td className="pl-5">: ${numeral(data?.budget || 0).format('0,0')}</td>
                     </tr>
                     <tr>
                       <td>Revenue</td>
-                      <td className="pl-5">: ${data?.revenue || "-"}</td>
+                      <td className="pl-5">: ${numeral(data?.revenue || 0).format('0,0')}</td>
                     </tr>
                     <tr>
                       <td>Production Company</td>
