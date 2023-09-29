@@ -1,9 +1,10 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useSWR from "swr";
 import fetcher from "../utils/fetcher";
-import numeral from 'numeral'
-import dayjs from 'dayjs';
-
+import numeral from "numeral";
+import dayjs from "dayjs";
+import Button from "../components/button";
+import Footer from "../components/footer";
 export default function MovieDetailComponent() {
   const { id } = useParams();
   const { data } = useSWR(
@@ -15,6 +16,8 @@ export default function MovieDetailComponent() {
     `${process.env.REACT_APP_MOVIE_DETAIL}${id}/images`,
     fetcher
   );
+
+  const navigate = useNavigate();
 
   return (
     <div
@@ -50,7 +53,9 @@ export default function MovieDetailComponent() {
               <tbody>
                 <tr>
                   <td>Release Date</td>
-                  <td className="pl-5">: {dayjs(data?.release_date).format('MMM, DD YYYY')}</td>
+                  <td className="pl-5">
+                    : {dayjs(data?.release_date).format("MMM, DD YYYY")}
+                  </td>
                 </tr>
                 <tr>
                   <td>Native Language</td>
@@ -85,15 +90,24 @@ export default function MovieDetailComponent() {
                   <tbody className="text-white">
                     <tr>
                       <td>Budget</td>
-                      <td className="pl-5">: ${numeral(data?.budget || 0).format('0,0')}</td>
+                      <td className="pl-5">
+                        : ${numeral(data?.budget || 0).format("0,0")}
+                      </td>
                     </tr>
                     <tr>
                       <td>Revenue</td>
-                      <td className="pl-5">: ${numeral(data?.revenue || 0).format('0,0')}</td>
+                      <td className="pl-5">
+                        : ${numeral(data?.revenue || 0).format("0,0")}
+                      </td>
                     </tr>
                     <tr>
                       <td>Production Company</td>
-                      <td className="pl-5">: {data?.production_companies?.map(({name} : {name: string}) => name).join(', ') || "-"}</td>
+                      <td className="pl-5">
+                        :{" "}
+                        {data?.production_companies
+                          ?.map(({ name }: { name: string }) => name)
+                          .join(", ") || "-"}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -108,7 +122,10 @@ export default function MovieDetailComponent() {
                   <tbody className="text-white">
                     <tr>
                       <td>Rating</td>
-                      <td className="pl-5">: {data?.vote_average || "-"} / 10 from a total of {data?.vote_count || '-'} assessments</td>
+                      <td className="pl-5">
+                        : {data?.vote_average || "-"} / 10 from a total of{" "}
+                        {data?.vote_count || "-"} assessments
+                      </td>
                     </tr>
                     <tr>
                       <td>Website Home Page</td>
@@ -124,19 +141,36 @@ export default function MovieDetailComponent() {
                 <h1 className="text-4xl font-bold">Images</h1>
                 <div className="h-[1px] w-full bg-[white]" />
                 <div className="flex flex-col items-start justify-start">
-                  {
-                    dataImages?.backdrops?.filter(({iso_639_1} : {iso_639_1: string}) => !iso_639_1).map(({file_path} : {file_path: string}) => (
+                  {dataImages?.backdrops
+                    ?.filter(
+                      ({ iso_639_1 }: { iso_639_1: string }) => !iso_639_1
+                    )
+                    .map(({ file_path }: { file_path: string }) => (
                       <div>
-                        <img src={`${process.env.REACT_APP_IMAGE_URL}${file_path}`} alt="images" />
+                        <img
+                          src={`${process.env.REACT_APP_IMAGE_URL}${file_path}`}
+                          alt="images"
+                        />
                       </div>
-                    ))
-                  }
+                    ))}
                 </div>
               </div>
+            </div>
+
+            <div className="grid grid-cols-1">
+              <Button
+                onClick={() => {
+                  navigate("/");
+                }}
+                disabled={false}
+              >
+                Back To Home Page
+              </Button>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

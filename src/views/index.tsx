@@ -4,7 +4,7 @@ import useSWR from "swr";
 import Button from "../components/button";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-
+import Footer from "../components/footer";
 /**
  * Here we will declare the interface type that we will use to represent
  * the response object received from the fetch library
@@ -182,18 +182,7 @@ function HomeComponent () {
             </Button>
           </div>
 
-          {/* Footer */}
-          <div className="w-full h-full flex justify-center !mt-[50px]">
-            <p className="text-white text-xl">
-              Made By{" "}
-              <a
-                className="font-bold underline hover:"
-                href="https://www.rhafaelbijaksana.site"
-              >
-                Elbi
-              </a>
-            </p>
-          </div>
+          <Footer></Footer>
         </div>
       </div>
     </div>
