@@ -18,14 +18,14 @@ export default function MovieDetailComponent() {
     <div
       className={`bg-[#0A2647] min-h-screen pb-[50px] w-full h-full flex flex-col items-center justify-start`}
     >
-      <div className="w-full h-[350px] bg-slate-900 shadow-xl">
+      <div className="w-full h-[350px] bg-slate-900 shadow-xl hidden lg:block">
         <img
           src={`${process.env.REACT_APP_IMAGE_URL}${data?.backdrop_path}`}
           alt="background"
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="xl:max-w-5xl lg:max-w-3xl px-[x50px] w-full h-full -mt-[250px] p-[20px] flex rounded overflow-hidden space-x-[10px] bg-[#144272] shadow-xl">
+      <div className="xl:max-w-5xl lg:max-w-3xl px-[x50px] w-full h-full lg:-mt-[250px] px-[20px] py-[16px] md:p-[20px] flex flex-col md:flex-row rounded overflow-hidden md:space-x-[16px] bg-[#144272] shadow-xl">
         <div className="w-[300px] h-[400px] overflow-hidden shadow-xl shrink-[0]">
           <img
             src={`${process.env.REACT_APP_IMAGE_URL}${data?.poster_path}`}
@@ -33,7 +33,8 @@ export default function MovieDetailComponent() {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="w-full h-full space-y-[30px] px-[16px]">
+
+        <div className="w-full h-full space-y-[30px] lg:px-[16px] mt-[16px] md:mt-[0]">
           <div className="space-y-[10px] text-white h-full">
             <h1 className="xl:text-7xl text-3xl md:text-4xl font-bold">
               {data?.title}
