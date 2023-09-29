@@ -19,19 +19,25 @@ interface Data {
   total_pages: number;
 }
 
-function HomeComponent () {
+function HomeComponent() {
   /**
    * Here we define the state to create the search feature
    */
-  const [search, setSearch] = useState("");
-  const [searchKeyUp, setSearchKeyUp] = useState("");
-  const [pagination, setPagination] = useState(1);
+  const [search, setSearch] = useState(
+    () => localStorage.getItem("searchParam") || ""
+  );
+  const [searchKeyUp, setSearchKeyUp] = useState(
+    () => localStorage.getItem("searchParam") || ""
+  );
+  const [pagination, setPagination] = useState(() =>
+    parseInt(localStorage.getItem("paginationIndex") || "1")
+  );
 
   /**
-   * For the section here, we have a value that will return a url based 
-   * on the search value we input. if the value is empty, then we will 
-   * retrieve all data about popular films, but if we fill in a value 
-   * in the search input then we will retrieve 
+   * For the section here, we have a value that will return a url based
+   * on the search value we input. if the value is empty, then we will
+   * retrieve all data about popular films, but if we fill in a value
+   * in the search input then we will retrieve
    * data based on the input value we entered.
    */
   const url = useMemo(() => {
@@ -52,19 +58,24 @@ function HomeComponent () {
   /**
    * Here we will do the conditioning, in which we will wait for
    *  one second since the last typing on the keyboard, then retrieve
-   *  data from the server. If before one second we type any button again, 
+   *  data from the server. If before one second we type any button again,
    * it will cancel the previous one second, then wait for 1 second reset (reset).
    *  Why ? because to prevent unnecessary requests and to save resources
    */
   useEffect(() => {
     const timeout = setTimeout(() => {
       setSearchKeyUp(search);
+      localStorage.setItem("searchParam", search);
     }, 500);
 
     return () => {
       clearTimeout(timeout);
     };
   }, [search, setSearchKeyUp]);
+
+  useEffect(() => {
+    console.log(search, searchKeyUp, pagination);
+  }, [search, searchKeyUp, pagination]);
 
   return (
     <div
@@ -129,16 +140,14 @@ function HomeComponent () {
             <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 grid-rows-7 gap-[48px] !mt-[50px]">
               {Array.isArray(data?.results) &&
                 data?.results.map((candidate) => (
-                  <Link to={`/${candidate.id}`}>
+                  <Link to={`/${candidate.id}`} key={candidate.id}>
                     <div
                       key={candidate.id}
                       className="group shadow-xl bg-brand-800 rounded overflow-hidden hover:border-brand-600 border-[3px] border-brand-900 cursor-pointer"
                     >
                       <div className="w-full h-[500px] bg-brand-900 overflow-hidden">
                         <img
-                          src={`${process.env.REACT_APP_IMAGE_URL}/${
-                            candidate.poster_path
-                          }`}
+                          src={`${process.env.REACT_APP_IMAGE_URL}/${candidate.poster_path}`}
                           alt={candidate.title}
                           className="w-full h-full object-cover transition group-hover:scale-[1.2]"
                         />
@@ -148,7 +157,7 @@ function HomeComponent () {
                           {candidate.title}
                         </p>
                         <p className="text-white text-sm xl:text-md">
-                          {dayjs(candidate.release_date).format('MMM, DD YYYY')}
+                          {dayjs(candidate.release_date).format("MMM, DD YYYY")}
                         </p>
                       </div>
                     </div>
@@ -164,7 +173,13 @@ function HomeComponent () {
           <div className="w-full h-full grid grid-cols-2 gap-[20px] justify-end">
             <Button
               disabled={pagination === 1}
-              onClick={() => setPagination((state) => state - 1)}
+              onClick={() =>
+                setPagination((state) => {
+                  const value = state - 1;
+                  localStorage.setItem("paginationIndex", value.toString());
+                  return value;
+                })
+              }
             >
               Previous
             </Button>
@@ -176,7 +191,13 @@ function HomeComponent () {
                 (data?.total_pages > 500 ? 500 : data?.total_pages) ===
                   pagination
               }
-              onClick={() => setPagination((state) => state + 1)}
+              onClick={() =>
+                setPagination((state) => {
+                  const value = state + 1;
+                  localStorage.setItem("paginationIndex", value.toString());
+                  return value;
+                })
+              }
             >
               Next
             </Button>
