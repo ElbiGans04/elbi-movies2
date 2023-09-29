@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import fetcher from "../utils/fetcher";
 import useSWR from "swr";
 import Button from "../components/button";
+import { Link } from "react-router-dom";
 
 /**
  * Here we will declare the interface type that we will use to represent
@@ -127,28 +128,30 @@ function HomeComponent () {
             <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 grid-rows-7 gap-[48px] !mt-[50px]">
               {Array.isArray(data?.results) &&
                 data?.results.map((candidate) => (
-                  <div
-                    key={candidate.id}
-                    className="group shadow-xl bg-[#144272] rounded overflow-hidden hover:border-[#2C74B3] border-[3px] border-[#0A2647] cursor-pointer"
-                  >
-                    <div className="w-full h-[500px] bg-[#0A2647] overflow-hidden">
-                      <img
-                        src={`${process.env.REACT_APP_IMAGE_URL}/${
-                          candidate.poster_path
-                        }`}
-                        alt={candidate.title}
-                        className="w-full h-full object-cover transition group-hover:scale-[1.2]"
-                      />
+                  <Link to={`/${candidate.id}`}>
+                    <div
+                      key={candidate.id}
+                      className="group shadow-xl bg-[#144272] rounded overflow-hidden hover:border-[#2C74B3] border-[3px] border-[#0A2647] cursor-pointer"
+                    >
+                      <div className="w-full h-[500px] bg-[#0A2647] overflow-hidden">
+                        <img
+                          src={`${process.env.REACT_APP_IMAGE_URL}/${
+                            candidate.poster_path
+                          }`}
+                          alt={candidate.title}
+                          className="w-full h-full object-cover transition group-hover:scale-[1.2]"
+                        />
+                      </div>
+                      <div className="p-[16px]">
+                        <p className="text-white text-xl xl:text-2xl">
+                          {candidate.title}
+                        </p>
+                        <p className="text-white text-sm xl:text-md">
+                          {candidate.release_date}
+                        </p>
+                      </div>
                     </div>
-                    <div className="p-[16px]">
-                      <p className="text-white text-xl xl:text-2xl">
-                        {candidate.title}
-                      </p>
-                      <p className="text-white text-sm xl:text-md">
-                        {candidate.release_date}
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
                 ))}
             </div>
           )}
