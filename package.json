@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-router": "^5.1.20",
     "dayjs": "^1.11.10",
+    "node-fetch": "^3.3.2",
     "numeral": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
