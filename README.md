@@ -1,46 +1,29 @@
-# Getting Started with Create React App
+# Elbi Movies
+# Prerequisites
+you have to installed node js version 16.x.x locally in your computer.
+# How To Run ? 
+- First Clone this repo to your local computer with command :
+`git clone <this repo url>`
+- After all, you have to install all package depedencies with command :
+`npm install`
+but before that, you have to make sure in your local computer has already installed node js software app with minimum version is 16
+- Finnally, lets just type last command :
+`npm run dev` to run the app in your local computer.
+- And now you can acceess the app in your browser and just type the url of app in your browser :
+https://localhost:3000
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# How To Use :
+- run command `npm run dev` after you already installed all depedencies
+- And now you can acceess the app in your browser and just type the url of app in your browser :
+https://localhost:3000
+- If you want search any movies you want, just type in input box about the title of movies that you want to search, and boom, the website will show you about the movies based on you input text
+- and if you want to see the details of the film, then you just click on which film you want to see the details of
 
-## Available Scripts
 
-In the project directory, you can run:
+# How To run test ?
+- run command `npx run test` after you already installed all depedencies
+- boom tests has running now.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Feature Adittional
+- In This App, i has add one feature, that is **pagination** which can make the website display data quickly. You can click the next or previous button to quickly change the active data. This feature is very useful for users because it can make the application run quickly
+- Another additional feature is the website's ability to **display film details**, such as what genre it is and how much money was spent to make the film
