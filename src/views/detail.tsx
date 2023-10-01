@@ -1,24 +1,43 @@
 import { useNavigate, useParams } from "react-router";
 import useSWR from "swr";
 import fetcher from "../utils/fetcher";
-import numeral from "numeral";
-import dayjs from "dayjs";
 import Button from "../components/button";
 import Footer from "../components/footer";
 import LoadingComponent from "../components/loading";
 import ErrorComponent from "../components/error";
+import { formatDate, formatMoney } from "../utils";
+
 export default function MovieDetailComponent() {
+  // This line of code is using destructuring assignment to extract the 'id' variable
+  // from the result of calling the 'useParams()' hook. 'useParams()' is typically used
+  // in React Router to access route parameters. In this case, it's extracting the 'id'
+  // parameter from the current route's parameters and storing it in the 'id' variable.
   const { id } = useParams();
+  // In these lines of code, we are using the 'useSWR' hook to fetch data from remote sources.
+  // 'useSWR' is often used for data fetching in React applications, especially with remote APIs.
+  // The hook takes two arguments: a URL and a 'fetcher' function, which defines how data is fetched.
+
+  // The first 'useSWR' call fetches data related to a movie with the 'id' parameter from the URL.
+  // It stores the data in the 'data' variable, a loading indicator in 'isLoading', and any error
+  // that occurs during the fetch in the 'error' variable.
   const { data, isLoading, error } = useSWR(
     `${process.env.REACT_APP_MOVIE_DETAIL}${id}`,
     fetcher
   );
-
+  // The second 'useSWR' call fetches images related to the same movie identified by the 'id'.
+  // It stores the data in 'dataImages'. Note that this call uses a different URL for fetching images.
   const { data: dataImages } = useSWR(
     `${process.env.REACT_APP_MOVIE_DETAIL}${id}/images`,
     fetcher
   );
 
+  // This line of code uses the 'useNavigate' hook, which is typically part of a routing library
+  // like React Router. 'useNavigate' provides a function that allows you to programmatically
+  // navigate to different routes within your application.
+
+  // In this context, 'navigate' is a function that you can call to trigger navigation to a
+  // different route. This is useful for controlling the flow of your application and directing
+  // users to different views or pages based on certain conditions or user interactions.
   const navigate = useNavigate();
 
   return (
@@ -35,9 +54,11 @@ export default function MovieDetailComponent() {
         )}
       </div>
       <div className="xl:max-w-5xl lg:max-w-3xl px-[x50px] w-full h-full lg:-mt-[250px] px-[20px] py-[16px] md:p-[20px] flex flex-col md:flex-row rounded overflow-hidden md:space-x-[16px] bg-brand-800 shadow-xl">
+        {/* Indicator Error */}
         {!isLoading && error && <ErrorComponent />}
+        {/* Indicator Loading */}
         {isLoading && !error && <LoadingComponent />}
-
+        {/* Actual Content */}
         {!isLoading && !error && (
           <>
             <div className="w-[300px] h-[400px] overflow-hidden shadow-xl shrink-[0]">
@@ -63,7 +84,7 @@ export default function MovieDetailComponent() {
                     <tr>
                       <td>Release Date</td>
                       <td className="pl-5">
-                        : {dayjs(data?.release_date).format("MMM, DD YYYY")}
+                        : {formatDate(data?.release_date)}
                       </td>
                     </tr>
                     <tr>
@@ -104,13 +125,13 @@ export default function MovieDetailComponent() {
                         <tr>
                           <td>Budget</td>
                           <td className="pl-5">
-                            : ${numeral(data?.budget || 0).format("0,0")}
+                            : ${formatMoney(data?.budget || 0)}
                           </td>
                         </tr>
                         <tr>
                           <td>Revenue</td>
                           <td className="pl-5">
-                            : ${numeral(data?.revenue || 0).format("0,0")}
+                            : ${formatMoney(data?.revenue || 0)}
                           </td>
                         </tr>
                         <tr>
@@ -156,6 +177,8 @@ export default function MovieDetailComponent() {
                     <h1 className="text-4xl font-bold">Images</h1>
                     <div className="h-[1px] w-full bg-[white]" />
                     <div className="flex flex-col items-start justify-start">
+                      {/* The resulting JSX will render a series of images that are filtered based on the 'iso_639_1' property,
+                          ensuring that only certain backdrops are displayed. */}
                       {dataImages?.backdrops
                         ?.filter(
                           ({ iso_639_1 }: { iso_639_1: string }) => !iso_639_1

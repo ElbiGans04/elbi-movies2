@@ -3,10 +3,10 @@ import fetcher from "../utils/fetcher";
 import useSWR from "swr";
 import Button from "../components/button";
 import { Link } from "react-router-dom";
-import dayjs from "dayjs";
 import Footer from "../components/footer";
 import ErrorComponent from "../components/error";
 import LoadingComponent from "../components/loading";
+import { formatDate } from "../utils";
 /**
  * Here we will declare the interface type that we will use to represent
  * the response object received from the fetch library
@@ -57,7 +57,9 @@ function HomeComponent() {
 
   const { data, isLoading, error } = useSWR<Data>(url, fetcher);
 
-  // Beri Deskripsi
+  // This line of code defines a constant 'haveToDisabled' which is a boolean value.
+  // It is set to true if either the 'isLoading' variable is true or if there is an 'error'.
+  // This is commonly used to conditionally disable or enable certain functionality or UI elements.
   const haveToDisabled = isLoading || error;
 
   /**
@@ -78,9 +80,12 @@ function HomeComponent() {
     };
   }, [search, setSearchKeyUp]);
 
-  /**
-   * Reset Pagination Number When Input Changes
-   */
+  // This useEffect hook is used to watch for changes in 'search' and 'searchKeyUp' variables.
+  // When either of them changes, it performs the following actions:
+  // 1. It sets the 'pagination' state to 1, resetting the pagination to the first page.
+  // 2. It stores the value "1" in the browser's localStorage under the key "paginationIndex".
+  // This is typically used in scenarios where you want to reset pagination and store a user's
+  // pagination preferences when the search criteria changes.
   useEffect(() => {
     if (search !== searchKeyUp) {
       setPagination(1);
@@ -150,7 +155,7 @@ function HomeComponent() {
                           {candidate.title}
                         </p>
                         <p className="text-white text-sm xl:text-md">
-                          {dayjs(candidate.release_date).format("MMM, DD YYYY")}
+                          {formatDate(candidate.release_date)}
                         </p>
                       </div>
                     </div>
